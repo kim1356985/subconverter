@@ -605,6 +605,9 @@ proxyToClash(std::vector<Proxy> &nodes, YAML::Node &yamlnode, const ProxyGroupCo
                 singleproxy["type"] = "vless";
                 singleproxy["uuid"] = x.UserId;
                 singleproxy["tls"] = x.TLSSecure;
+                if (!x.EncryptMethod.empty()) {
+                    singleproxy["encryption"] = x.EncryptMethod;
+                }
                 if (!x.AlpnList.empty()) {
                     for (auto &item: x.AlpnList) {
                         singleproxy["alpn"].push_back(item);
@@ -1307,6 +1310,9 @@ std::string proxyToSingle(std::vector<Proxy> &nodes, int types, extra_settings &
 
                 if (!flow.empty()) {
                     proxyStr += "&flow=" + flow;
+                }
+                if (!method.empty()) {
+                    proxyStr += "&encryption=" + method;
                 }
                 if (!pbk.empty()) {
                     proxyStr += "&pbk=" + pbk;
