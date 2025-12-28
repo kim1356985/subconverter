@@ -1408,7 +1408,7 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes) {
                 wireguardConstruct(node, group, ps, server, port, ip, ipv6, private_key, public_key, password,
                                    dns_server, mtu, "0", "", "", udp, "");
                 break;
-            case "vless"_hash:
+            case "vless"_hash: {
                 group = XRAY_DEFAULT_GROUP;
                 singleproxy["uuid"] >>= id;
                 singleproxy["alterId"] >>= aid;
@@ -1482,6 +1482,7 @@ void explodeClash(Node yamlnode, std::vector<Proxy> &nodes) {
                                host, "", tls, pbk, sid, fp, sni, alpnList, packet_encoding, udp, tribool(), tribool(),
                                tribool(), "", v2ray_http_upgrade);
                 break;
+            }
             case "hysteria"_hash:
                 group = HYSTERIA_DEFAULT_GROUP;
                 singleproxy["auth_str"] >> auth;
@@ -2993,7 +2994,7 @@ void explodeSingbox(rapidjson::Value &outbounds, std::vector<Proxy> &nodes) {
                                         tfo,
                                         scv);
                         break;
-                    case "vless"_hash:
+                    case "vless"_hash: {
                         group = XRAY_DEFAULT_GROUP;
                         id = GetMember(singboxNode, "uuid");
                         flow = GetMember(singboxNode, "flow");
@@ -3039,6 +3040,7 @@ void explodeSingbox(rapidjson::Value &outbounds, std::vector<Proxy> &nodes) {
                         vlessConstruct(node, group, ps, server, port, type, id, aid, net, encryption, flow, mode, path,
                                        host, "", tls, pbk, sid, fp, sni, alpnList, packet_encoding, udp);
                         break;
+                    }
                     case "http"_hash:
                         password = GetMember(singboxNode, "password");
                         user = GetMember(singboxNode, "username");
